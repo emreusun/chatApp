@@ -1,0 +1,22 @@
+{
+  "name": "usune_t_chathw",
+  "version": "1.0.0",
+  "description": "chat app with node and express",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "keywords": [
+    "chat",
+    "app",
+    "node",
+    "express",
+    "vue"
+  ],
+  "author": "EU",
+  "license": "ISC",
+  "dependencies": {
+    "express.io": "^1.1.13",
+    "socket.io": "^4.5.4"
+  }
+}
