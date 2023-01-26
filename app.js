@@ -8,10 +8,11 @@ const io = new Server(server);
 // extra comment for git push
 
 const port = process.env.PORT || 3000;
+app.use(express.static('public'));
 
 // this is a route handler -> listen for incoming requests and send back a reponse
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 // set up the server to listen for incoming connections at this port
@@ -21,6 +22,23 @@ server.listen(port, () => {
 
 // socket.io connection
 
-io.on('connection', (socket) => {
-  console.log('chat user connected' , socket);
+io.on('connection', function(socket) {
+  console.log('a user has connected' );
+  socket.emit('connected', { sID: socket.id, message: "new connection" });
+  // step 1 - receive incoming messages
+  socket.on('chat_message', function(msg) {
+    console.log(msg); // have a look at the message date
+
+    // step 2
+    // readbroadcas the current message to everyone conenct to our chat service
+    // it gets sent to all users, includein the original message creator
+  
+    io.emit('new_message', { id: socket.id, message: msg });
+    
+  })
+
+  socket.on('disconnect', function() {
+    console.log('a user has disconnected');
+
+  })
 });
