@@ -33,8 +33,11 @@ io.on('connection', function(socket) {
     // readbroadcas the current message to everyone conenct to our chat service
     // it gets sent to all users, includein the original message creator
   
-    io.emit('new_message', { id: socket.id, message: msg });
+    io.emit('new_message', { message: msg });
     
+  })
+  socket.on('typing_event', function(user) {
+    io.emit('typing', user);
   })
 
   socket.on('disconnect', function() {
